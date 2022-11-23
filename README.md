@@ -10,9 +10,9 @@ npm i @code-workers.io/ngx-list
 
 Lists are a very common UI component in almost every application. However,
 to build a really generic and flexible list component, in terms of the appearance of
-the list items some advanced techniques are required. 
+the list items some advanced techniques are required.
 
-Those advanced techniques are often either not well enough documented or just not really known. 
+Those advanced techniques are often either not well enough documented or just not really known.
 
 ## Features
 
@@ -31,16 +31,16 @@ Those advanced techniques are often either not well enough documented or just no
 ```typescript
 // in some component
 <ngx-list
-    [items]="items"
-  <ng-template [ngxListContext]="items" let-item let-active="active" let-selected="selected">
-    <div (click)="onSelect(item)"
-      class="border border-gray-300 shadow-lg rounded-lg bg-white px-10 py-8 mb-4"
-        [class.item_active]="active"
-        [class.item_selected]="selected"
-        >
-      <span >{{item.name}} | {{item.id}} </span>
-    </div>
-  </ng-template>
+  [items]="items"
+<ng-template [ngxListContext]="items" let-item let-active="active" let-selected="selected">
+<div (click)="onSelect(item)"
+class="border border-gray-300 shadow-lg rounded-lg bg-white px-10 py-8 mb-4"
+  [class.item_active]="active"
+  [class.item_selected]="selected"
+  >
+  <span >{{item.name}} | {{item.id}} </span>
+</div>
+</ng-template>
 </ngx-list>
 
 
@@ -61,3 +61,4 @@ The styles are built with [Tailwind CSS](https://tailwindcss.com/)
 ## Compatibility
 
 - version 1.x.x is compatible with Angular v13.0.0 and higher
+- version 2.x.x is compatible with Angular v14.0.0 and higher

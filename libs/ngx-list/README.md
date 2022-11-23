@@ -61,3 +61,4 @@ The styles are built with [Tailwind CSS](https://tailwindcss.com/)
 ## Compatibility
 
 - version 1.x.x is compatible with Angular v13.0.0 and higher
+- version 2.x.x is compatible with Angular v14.0.0 and higher
