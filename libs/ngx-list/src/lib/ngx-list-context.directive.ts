@@ -3,7 +3,8 @@ import { NgxListContext } from './ngx-list.component';
 
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
-  selector: 'ng-template[ngxListContext]'
+  selector: 'ng-template[ngxListContext]',
+  standalone: true
 })
 export class NgxListContextDirective<T> {
   @Input() ngxListContext!: T[];

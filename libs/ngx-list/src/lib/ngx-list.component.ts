@@ -5,16 +5,14 @@ import {
   ContentChild,
   ElementRef,
   EventEmitter,
-  HostListener,
   Input,
-  NgModule,
   NgZone,
   Output,
   QueryList,
   TemplateRef,
   ViewChildren
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgForOf, NgIf, NgTemplateOutlet} from '@angular/common';
 import { NgxListContextDirective } from './ngx-list-context.directive';
 import { fromEvent } from 'rxjs';
 
@@ -30,6 +28,8 @@ export interface NgxListContext<T> extends ContextWithImplicit<T> {
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'ngx-list',
+  standalone: true,
+  imports: [NgForOf, NgIf, NgTemplateOutlet],
   template: `
     <ng-container *ngFor="let item of items">
       <div
@@ -111,10 +111,3 @@ export class NgxListComponent<T> implements AfterViewInit {
     this.selectedItem.emit(item);
   }
 }
-
-@NgModule({
-  declarations: [NgxListComponent, NgxListContextDirective],
-  exports: [NgxListComponent, NgxListContextDirective],
-  imports: [CommonModule]
-})
-export class NgxListModule {}

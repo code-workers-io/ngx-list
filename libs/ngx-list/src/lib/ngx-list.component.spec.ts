@@ -1,4 +1,4 @@
-import { NgxListComponent, NgxListContextDirective,NgxListModule } from '@code-workers.io/ngx-list';
+import { NgxListComponent, NgxListContextDirective } from '@code-workers.io/ngx-list';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
 
@@ -83,7 +83,7 @@ interface TestModel {
 
 async function createComponent() {
   await TestBed.configureTestingModule({
-    declarations: [NgxListComponent, NgxListContextDirective],
+    imports: [NgxListComponent, NgxListContextDirective],
     providers: []
   }).compileComponents();
 
@@ -111,7 +111,7 @@ async function createTestHostComponent(template: string) {
 
       TestHostComponent
     ],
-    imports: [NgxListModule],
+    imports: [NgxListComponent, NgxListContextDirective],
     providers: []
   })
     .overrideComponent(TestHostComponent, {
