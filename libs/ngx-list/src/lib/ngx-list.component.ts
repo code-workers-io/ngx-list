@@ -1,16 +1,22 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   ContentChild,
+  ElementRef,
   EventEmitter,
   HostListener,
   Input,
   NgModule,
+  NgZone,
   Output,
-  TemplateRef
+  QueryList,
+  TemplateRef,
+  ViewChildren
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgxListContextDirective } from './ngx-list-context.directive';
+import { fromEvent } from 'rxjs';
 
 export interface ContextWithImplicit<T> {
   readonly $implicit: T;
@@ -27,6 +33,7 @@ export interface NgxListContext<T> extends ContextWithImplicit<T> {
   template: `
     <ng-container *ngFor="let item of items">
       <div
+        #el
         (mouseenter)="onMouseEnter(item)"
         [class.item_active]="isActive(item)"
         [class.item_selected]="isSelected(item)"
@@ -54,13 +61,23 @@ export interface NgxListContext<T> extends ContextWithImplicit<T> {
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NgxListComponent<T> {
+export class NgxListComponent<T> implements AfterViewInit {
   @ContentChild(TemplateRef) content!: TemplateRef<NgxListContext<T>>;
   @Input() items: T[] = [];
   @Output() selectedItem = new EventEmitter<T>();
   #activeItem: T | null = null;
   #selectedItem: T | null = null;
-  constructor() {}
+  constructor(private zone: NgZone, private el: ElementRef) {}
+
+  @ViewChildren('el') elements!: QueryList<ElementRef>;
+
+  ngAfterViewInit(): void {
+    this.zone.runOutsideAngular(() => {
+      fromEvent(this.el.nativeElement, 'mouseleave').subscribe(
+        (_) => (this.#activeItem = null)
+      );
+    });
+  }
 
   getContext($implicit: T): NgxListContext<T> {
     return {
@@ -87,12 +104,6 @@ export class NgxListComponent<T> {
 
   onMouseEnter(item: T) {
     this.#activeItem = item;
-  }
-
-  // todo replace with an optimized rx-stream
-  @HostListener('mouseleave')
-  onMouseLeave() {
-    this.#activeItem = null;
   }
 
   onItemSelect(item: T): void {
