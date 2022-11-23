@@ -1,0 +1,42 @@
+{
+  "projectType": "library",
+  "root": "libs/ngx-list",
+  "sourceRoot": "libs/ngx-list/src",
+  "prefix": "ngx-list",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "outputs": ["dist/libs/ngx-list"],
+      "options": {
+        "project": "libs/ngx-list/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/ngx-list/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/ngx-list/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/ngx-list"],
+      "options": {
+        "jestConfig": "libs/ngx-list/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/ngx-list/src/**/*.ts",
+          "libs/ngx-list/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}
